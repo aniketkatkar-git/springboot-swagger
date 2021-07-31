@@ -1,7 +1,6 @@
 package com.springboot.swagger.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,12 +38,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public ResponseEntity<String> updateEmployeeByEmpId(String empId,Employee employee) {
 
-		Optional<Employee> emp = employeeRepository.findById(empId);
-
-		if(emp == null) {
-			return new ResponseEntity<>("Employee not present.",HttpStatus.NO_CONTENT);
-		}
-
 		Employee updateEmployee = employeeRepository.findById(empId).get();
 
 		updateEmployee.setName(employee.getName());
@@ -59,13 +52,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public ResponseEntity<String> deleteEmployeeByEmpId(String empId) {
-
-		Optional<Employee> emp = employeeRepository.findById(empId);
-
-		if(emp == null) {
-			return new ResponseEntity<>("Employee not present.",HttpStatus.NO_CONTENT);
-		}
-
 		employeeRepository.deleteById(empId);
 		return new ResponseEntity<>("Employee details deleted successfully.",HttpStatus.OK);
 	}
